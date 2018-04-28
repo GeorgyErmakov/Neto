@@ -137,7 +137,7 @@ class DuckClass
      }
 }
 
-class goodsClass
+class GoodsClass
 {
     public $goodVendor;
     public $goodName;
@@ -176,7 +176,7 @@ class goodsClass
 
 $car = new CarClass('CX-9', 'паркетник', 'Мазда', '2014');
 $tv = new TvClass('CVB897665', 'LED', 'ACER');
-$Pencil = new PencilClass('Красная', 'Автомат', 'Parker');
+$pencil = new PencilClass('Красная', 'Автомат', 'Parker');
 $duck = new DuckClass('male',2, 'китайская', 'Пекинская утка');
-$good = new goodsClass ('Черноморец', 'Помидор красный', 50, 'Отличный помидор', 5, 'http://....pics/tomato.jpg');
+$good = new GoodsClass ('Черноморец', 'Помидор красный', 50, 'Отличный помидор', 5, 'http://....pics/tomato.jpg');
 ?>
