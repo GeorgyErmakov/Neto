@@ -1,7 +1,3 @@
-<html>
-<head>
-    <title>Страница теста</title>
-</head>
 
 <?php
 session_start();
@@ -24,7 +20,6 @@ if (!findTest($testid)) {
    http_response_code(404);
     echo 'Извините, этот тест не найден';
     exit(1);}
-
 if (count($data)) {
     foreach ($data as $i) {
         if($i['testid']==$testid) {
@@ -37,6 +32,11 @@ if (count($data)) {
     $_SESSION['test']['id']=$testid;  
 }
 
+echo '<html>
+<head>
+    <title>Страница теста</title>
+</head>
+';
 if (count($var)) {
     echo '<h1>Прохождение теста "'. $testname .'" <br/></h1>';
     echo '<form action="" method="POST">';
@@ -53,6 +53,6 @@ if (count($var)) {
 echo '<form action="action.php" method="POST">';
 echo  '<br/> <button name="logout" type="submit" value="logout">Выйти</button>';
 echo  '<br/> <button name="backindex" type="submit" value="backindex">Вернуться на главную</button>';
-echo '</form>';            
+echo '</form></html>';            
+
 ?>
-</html>
