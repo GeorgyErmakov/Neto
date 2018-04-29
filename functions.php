@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 function getusers() {
     $json=file_get_contents('./users.json');
@@ -93,7 +92,7 @@ function delTest($testid) {
             unset($data[$key]);             
         }
     } 
-    file_put_contents($_SERVER['DOCUMENT_ROOT']. '/quationarie-file.json',json_encode($data)); 
+    file_put_contents('./quationarie-file.json',json_encode($data)); 
     unset($data); 
 }
 
