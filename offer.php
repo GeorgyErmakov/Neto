@@ -4,9 +4,9 @@ namespace offer
 
 interfaces OfferInterfaces
 {
-    public function getOffer($basket);
+	public function getOffer($basket);
 	public function approveOffer();
-    public function cancelOffer();
+	public function cancelOffer();
 	public function printOffer();
 }
 
