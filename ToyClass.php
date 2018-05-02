@@ -1,16 +1,13 @@
 <?php
+namespace Products;
 
 require "ProductClass.php";
 require "traits.php";
 
-namespace products\toysprod;
-
 class ToyClass extends ProductClass
 {
 	public $ageForToys;
-	public $discount = 10;
-    use GeneralDiscount;
-
+	use GeneralDiscount;
 
     public function getId() 
         {
@@ -40,23 +37,6 @@ class ToyClass extends ProductClass
 	public function getDisc()
 	    {
         return $this->discount;
-	    }
-	
-	public function getDelivery()
-	    {
-        if($this->discount<>0)
-        {
-          return $this->delivery+50;
-        }
-        else
-        {
-        return $this->delivery;
-        }
-	    }
-	
-	public function getWeight()
-	    {
-        return $this->weight;
 	    }
 	
 	public function setName($name) 
@@ -94,18 +74,6 @@ class ToyClass extends ProductClass
         $this->discount = $discount;
         return true;
 	    }
-	
-	public function setDelivery($del)
-	    {
-        $this->delivery = $del;
-        return true;
-	    }
-	
-	public function setWeight($weight)
-	    {
-        $this->weight = $weight;
-        return true;
-        }
     
     public function __construct($id, $name, $price)
         {
@@ -113,6 +81,7 @@ class ToyClass extends ProductClass
 	    $this->name = $name;
 	    $this->price = $price;
 	    }
+
 }
 
 ?>
