@@ -1,7 +1,7 @@
 <?php
 
-require "ProductClass.php"
-require "traits.php"
+require "ProductClass.php";
+require "traits.php";
 
 namespace products\toysprod;
 
