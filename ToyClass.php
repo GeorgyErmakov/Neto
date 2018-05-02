@@ -1,7 +1,7 @@
 <?php
 
-requare "ProductClass.php"
-requare "traits.php"
+require "ProductClass.php"
+require "traits.php"
 
 namespace products\toysprod;
 
