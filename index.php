@@ -1,14 +1,24 @@
 <?php
 
-function myAutoload($classNameWithNamespace)
+function myAutoload($className)
 {
-$pathToFile = $_SERVER['DOCUMENT_ROOT']. str_replace('\\', DIRECTORY_SEPARATOR, $classNameWithNameSpace. '.php';
-if (file_exists($pathToFile)) {
-include "$pathToFile";
+    $pathToFile = './'. str_replace('\\', DIRECTORY_SEPARATOR, $className). '.php';
+    if (file_exists($pathToFile)) {
+        require "$pathToFile";
+    }
 }
 
-$toy = new ToyClass('1', 'Погремушка', '100');
-//$art = new products\kidsartsprod ArtClass(1, 'Альбом', 150);
-//$food = new products\kidsfoodsprod KidsFoodClass(1, 'Пюре', 350);
+function myAutoload2($className) 
+{
+    $filePath='./'.$className.'.php'; 
+    if (file_exists($filePath)) { 
+    	require "$filePath"; 
+    } 
+} 
+
+spl_autoload_register('myAutoload'); 
+spl_autoload_register('myAutoload2'); 
+
+$toy = new Products\ToyClass('1', 'Погремушка', '100');
 
 ?>
