@@ -1,4 +1,5 @@
 <?php
+
 namespace basket
 
 interfaces BasketInterfaces
@@ -11,7 +12,7 @@ interfaces BasketInterfaces
 	public function setDisc($num);
 }
 
- class BasketClass implements BasketInterfaces
+class BasketClass implements BasketInterfaces
 {
 	private $basketid;
 	private $products;
@@ -24,7 +25,6 @@ interfaces BasketInterfaces
 	public function clearBasket();
 	public function getDisc();
 	public function setDisc($num);
-
 }
 
 ?>
