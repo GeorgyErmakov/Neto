@@ -1,4 +1,5 @@
 <?php
+namespace Products;
 
 trait ExtraWeightDiscount 
 {
