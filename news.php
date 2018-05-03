@@ -42,8 +42,8 @@ function getNews() {
 $newsarr = getNews();
 
 if (count($newsarr)) {
-	  foreach ($newsarr as $i) {
-		    $news = new NewsClass($i['title'], $i['date'], $i['content']);
+    foreach ($newsarr as $i) {
+        $news = new NewsClass($i['title'], $i['date'], $i['content']);
         $news->postNews();
     }
 }
