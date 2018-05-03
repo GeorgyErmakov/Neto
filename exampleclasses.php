@@ -14,7 +14,7 @@ class CarClass
     public function __construct($model, $type, $brand, $date)
     {
     $this->carModel = $model;
-	$this->carType = $type;
+    $this->carType = $type;
 	$this->carBrand = $brand;
     $this->carDate = $date;
 	return true;
