@@ -11,7 +11,7 @@ class NewsClass
     $this->newsTitle=$title;
     $this->newsDate=$date;
     $this->newsContent=$content;
-	$this->newsComments=array();
+    $this->newsComments=array();
     return true;
     } 
    
