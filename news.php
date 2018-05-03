@@ -8,17 +8,17 @@ class NewsClass
    
     public function __construct($title, $date, $content)
     {
-	  $this->newsTitle=$title;
-	  $this->newsDate=$date;
-	  $this->newsContent=$content;
-	  $this->newsComments=array();
-	  return true;
+    $this->newsTitle=$title;
+    $this->newsDate=$date;
+    $this->newsContent=$content;
+	$this->newsComments=array();
+    return true;
     } 
    
     public function postNews()
     {
     echo $this->newsDate.'<h2>'.$this->newsTitle.'</h2><p>'.$this->newsContent.'</p>';
-	  return true;
+    return true;
     } 
    
     public function getComments()
@@ -29,7 +29,7 @@ class NewsClass
     public function postComments()
     {	
     echo newsDate;
-	  return true;
+    return true;
     } 
 }
 
