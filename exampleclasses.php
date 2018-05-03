@@ -15,9 +15,9 @@ class CarClass
     {
     $this->carModel = $model;
     $this->carType = $type;
-	$this->carBrand = $brand;
+    $this->carBrand = $brand;
     $this->carDate = $date;
-	return true;
+    return true;
     } 
 	
     public function carStartEngine() //метод включения зажигания автомобиля
