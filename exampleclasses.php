@@ -2,67 +2,94 @@
 
 class CarClass
 {
-    public $carModel; 
-    public $carType; 
     public $carBrand; 
     public $carColor; 
     public $carDate;
-    public $carSpeed;
-    public $carDrives = array();
-    public $carAcc;
+    private $carSpeed;
+    private $carDrives= array();
+    private $carAcc;
+    private $carStatus;
     
-    public function __construct($model, $type, $brand, $date)
+    public function __construct($model,$type,$brand,$date)
     {
-        $this->carModel = $model;
-        $this->carType = $type;
+        $this->name = $model;
+        $this->type = $type;
         $this->carBrand = $brand;
         $this->carDate = $date;
-        return true;
     } 
-	
+    
+    public function getConfiguration() 
+    {
+        $this->carDrives=[1,2,3,4,5];
+    }
+
     public function carStartEngine() //метод включения зажигания автомобиля
     {
-        return true;
+        if ($this->carSpeed == 0 && !$this->carStatus) {
+            $this->getConfiguration();
+            $this->carStatus = true;
+            echo "Start engine<br>";
+        }
+        return $this->carStatus;
     } 
-	
-    public function carAccelerate($carDrive, $carAcc) //метод ускорения машины
+
+    public function carAccelerate($drive,$acc) //метод ускорения машины
     {
-        return $speed;
+        if (carStatus) {
+            $this->carSpeed = $drive*$acc+$this->carSpeed;
+            echo "Drive it!<br>";
+        }
+            return $this->carSpeed;
     }
-	
-    public function carBreak($carSpeed) //метод остановки машины
+
+    public function carBreak() //метод остановки машины
     {
-        return true;
+        if ($this->carStatus) {
+            $this->carSpeed = 0;
+            $this->carStatus = false;
+        }
+    }
+
+    public function carGetStatus()
+    {
+        return $this->carStatus;
+    }
+
+    public function carGetSpeed()
+    {
+        return $this->carSpeed;
     }
 }
+
 
 class TvClass
 {
     public $tvType; 
     public $tvVendor;
     public $tvModel;
+    public $tvStatus;
+    public $tvCurrChannel;
 	
     public function __construct($model, $type, $vendor)
     {
         $this->tvtype = $type;
         $this->tvVendor = $vendor;
         $this->tvModel = $model;	
-        return true;
     } 
 
     public function tvOn() // функция включения ТВ
     {
-        return true;
+        $this->tvStatus = true;
     } 
     
     public function tvOff() //функция выключения ТВ
     {
-        return true;
+        $this->tvStatus = false;
     } 
 
-    public function tvSwitch($channal) //функция переключения телевизора на нужный канал $channal
+    public function tvSwitch($channel) //функция переключения телевизора на нужный канал $channal
     {
-        return true;
+        $this->tvCurrChannel = $channel;
     }
 }
 
@@ -71,28 +98,29 @@ class PencilClass
     public $PencilType; 
     public $PencilVendor;
     public $PencilColor;
+    public $PencilState;
+    public $PencilInkVolume;
 
     public function __construct($color, $type, $vendor)
     {
         $this->PencilType = $type;
         $this->PencilVendor = $vendor;
         $this->PencilColor = $color;	
-        return true;
     } 
 
     public function PencilOpen() // метод открытия ручки
     {
-        return true;
+        $this->PencilState = true;
     } 
    
     public function PencilClose() // метод закрытия ручки
     {
-        return true;
+        $this->PencilState = false;
     } 
 
     public function PencilFill($vol) //метод запарвки чернил на объем $vol
     {
-        return true;
+        $this->$PencilInkVolume = min(100, $PencilInkVolume+$vol);
     }
 }
 
@@ -102,6 +130,10 @@ class DuckClass
     public $DuckOld;
     public $DuckType;
     public $DuckName;
+    public $DuckState;
+    public $DuckSpeed;
+    public $DuckHealth;
+
 
     public function __construct($gender, $old, $type, $name)
     {
@@ -109,27 +141,29 @@ class DuckClass
         $this->DuckOld = $old;
         $this->DuckType = $type;
         $this->DuckName = $name;
-        return true;
     } 
 
-    public function duckEat() // метод поглощения пищи, 
+    public function duckEat($vol) // метод поглощения пищи, 
     {
-        return true;
+        $this->DuckHealth = log10($vol);
     } 
 
     public function duckRun($speed) // метод ходьбы и полета, приводит объект в движение на скорости $speed
     {
-        return true;
+        $this->DuckState = 'run';
+        $this->DuckSpeed = $speed;
     } 
 
-    public function duckFly() //метод взлета утки
+    public function duckFly($speed) //метод взлета утки
     {
-        return true;
+        $this->DuckState = 'fly';
+        $this->DuckSpeed = $speed;
     }
 
     public function duckSleep() //метод сна утки
     {
-        return true;
+        $this->DuckSpeed = 0;
+        $this->DuckState = 'sleep';
     }
 }
 
@@ -150,7 +184,6 @@ class GoodsClass
         $this->goodDesc = $desc;
         $this->goodDiscount = $disc;
         $this->goodPic = $pic;	
-        return true;
     } 
 
     public function goodGetPrice() // метод получения цены
