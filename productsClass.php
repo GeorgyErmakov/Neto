@@ -2,16 +2,16 @@
 
 interfaces ProductInterfaces
 {
-	public function getName();
-	public function getpPrice();
+    public function getName();
+    public function getpPrice();
     public function getDesc();
-	public function getPic();
-	public function getDisc();
-	public function setName($name);
-	public function setPrice($price);
+    public function getPic();
+    public function getDisc();
+    public function setName($name);
+    public function setPrice($price);
     public function setDesc($desc);
-	public function setPic($picture);
-	public function setDisc($discount);
+    public function setPic($picture);
+    public function setDisc($discount);
 }
 
 
