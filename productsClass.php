@@ -28,12 +28,12 @@ class ProductClass implements ProductInterfaces
 
 
     public function getName() {
-    	return $this->name;
+        return $this->name;
 	}
 
     public function getPrice()
 	{
-		return $this->price;
+        return $this->price;
 	}
 
     public function getDesc() {
@@ -42,71 +42,70 @@ class ProductClass implements ProductInterfaces
 
     public function getPic()
 	{
-		return $this->picture;
+        return $this->picture;
 	}
 
     public function getDisc()
 	{
-		return $this->discount;
+        return $this->discount;
 	}
 
     public function getDelivery()
 	{
-		if ($this->dicount <> 0) {
-			return $this->delivery+50;
+        if ($this->dicount <> 0) {
+            return $this->delivery+50;
         } else {
-        	return $this->delivery;
+            return $this->delivery;
         }
 	}
 
     public function getWeight()
     {
-    	return $this->weight;
+        return $this->weight;
 	}
 
     public function setName($name) {
-    	$this->name = $name;
+        $this->name = $name;
     }
 
     public function setPrice($price)
 	{
-		$this->price = $price;
+        $this->price = $price;
     }
 
     public function setDesc($desc) {
-    	$this->description = $description;
-    	return true;
+        $this->description = $description;
     }
 
     public function setPic($picture) {
-		$this->picture=$picture;
+        $this->picture=$picture;
 	}
 
     public function setDisc($discount)
 	{
-		$this->discount = $discount;
+        $this->discount = $discount;
 	}
 
     public function setDelivery($del)
 	{
-		$this->delivery = $del;
+        $this->delivery = $del;
 
 	}
 	
     public function setWeight($weight)
 	{
-		$this->weight = $weight;
+        $this->weight = $weight;
 	}
 
 trait ExtraWeightDiscount {
 
     public function getDisc()
 	{
-		if ($this->weight > 10) {
-			return $this->discount;
-	    } else {
-	    	return $this->discount = 0;
-	    }
+        if ($this->weight > 10) {
+            return $this->discount;
+        } else {
+            return $this->discount = 0;
+        }
 	}
 } 
 
