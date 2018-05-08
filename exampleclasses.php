@@ -6,7 +6,7 @@ class CarClass
     public $carColor; 
     public $carDate;
     private $carSpeed;
-    private $carDrives = array();
+    private $carDrives= array();
     private $carAcc;
     private $carStatus;
     
@@ -101,26 +101,34 @@ class PencilClass
     public $PencilState;
     public $PencilInkVolume;
 
-    public function __construct($color, $type, $vendor)
+    public function __construct($color, $type, $vendor, $fill)
     {
         $this->PencilType = $type;
         $this->PencilVendor = $vendor;
-        $this->PencilColor = $color;	
+        $this->PencilColor = $color;
+        $this->PencilInkVolume = $fill;
     } 
 
-    public function PencilOpen() // метод открытия ручки
+    public function pencilOpen() // метод открытия ручки
     {
         $this->PencilState = true;
     } 
    
-    public function PencilClose() // метод закрытия ручки
+    public function pencilClose() // метод закрытия ручки
     {
         $this->PencilState = false;
     } 
 
-    public function PencilFill($vol) //метод запарвки чернил на объем $vol
+    public function pencilFill($vol) //метод запарвки чернил на объем $vol
     {
-        $this->$PencilInkVolume = min(100, $PencilInkVolume+$vol);
+        echo 'заправляем ручку, подождите ...<br/>';     
+        $fill = $this->PencilInkVolume+$vol;
+        $this->PencilInkVolume = min(100,$fill);
+    }
+
+    public function pencilDesc() //метод запарвки чернил на объем $vol
+    {
+        return 'Ручка '.$this->PencilType.' '.$this->PencilVendor.' '.$this->PencilColor;
     }
 }
 
@@ -145,7 +153,7 @@ class DuckClass
 
     public function duckEat($vol) // метод поглощения пищи, 
     {
-        $this->DuckHealth = log10($vol);
+        $this->DuckHealth = $this->DuckHealth+log10($vol);
     } 
 
     public function duckRun($speed) // метод ходьбы и полета, приводит объект в движение на скорости $speed
@@ -188,23 +196,23 @@ class GoodsClass
 
     public function goodGetPrice() // метод получения цены
     {
-        return true;
+        return $this->goodPrice;
     } 
 	
-    public function goodBuy($bool) // метод добавления в корзину или удаления из нее
+    public function goodSetPrice($price) // установка цены
     {
-        return true;
-    } 
-
-    public function goodCompare() // метод добавления к сравнению
-    {
-        return true;
+        $this->goodPrice = $price;
     } 
 }
 
     $car = new CarClass('CX-9', 'паркетник', 'Мазда', '2014');
+    $car2 = new CarClass('Ларгус', 'универсал', 'ВАЗ', '2011');
     $tv = new TvClass('CVB897665', 'LED', 'ACER');
-    $pencil = new PencilClass('Красная', 'Автомат', 'Parker');
+    $tv2 = new TvClass('CB897665', 'LAMP', 'SONY');
+    $pencil = new PencilClass('Красная', 'Автомат', 'Parker', 70);
     $duck = new DuckClass('male',2, 'китайская', 'Пекинская утка');
     $good = new GoodsClass ('Черноморец', 'Помидор красный', 50, 'Отличный помидор', 5, 'http://....pics/tomato.jpg');
+    echo $pencil->pencilDesc().' запарвлена на '.$pencil->PencilInkVolume.' %<br/>';
+    $pencil->pencilFill(20);
+    echo $pencil->pencilDesc().' запарвлена на '.$pencil->PencilInkVolume.' %';
 ?>
