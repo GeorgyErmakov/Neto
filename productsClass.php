@@ -107,7 +107,6 @@ trait ExtraWeightDiscount {
         }
 	}
 } 
-
 trait GeneralDiscount {
     public function getPrice()
     {
