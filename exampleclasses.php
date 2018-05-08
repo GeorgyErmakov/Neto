@@ -6,7 +6,7 @@ class CarClass
     public $carColor; 
     public $carDate;
     private $carSpeed;
-    private $carDrives= array();
+    private $carDrives = array();
     private $carAcc;
     private $carStatus;
     
