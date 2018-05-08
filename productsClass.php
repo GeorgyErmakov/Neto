@@ -98,7 +98,6 @@ class ProductClass implements ProductInterfaces
 	}
 
 trait ExtraWeightDiscount {
-
     public function getDisc()
 	{
         if ($this->weight > 10) {
@@ -110,32 +109,31 @@ trait ExtraWeightDiscount {
 } 
 
 trait GeneralDiscount {
-	public function getPrice()
-	{
-		return $this->price*0.1;
+    public function getPrice()
+    {
+        return $this->price*0.1;
 	}
 }
 
 class ToyClass extends ProductClass
 {
-	public ageForToys;
-	public $discount = 10;
+    public ageForToys;
+    public $discount = 10;
     use GeneralDiscount;
 }
 
 
 class ArtClass extends ProductClass
 {
-	public artType;
-	public $discount = 10;
+    public artType;
+    public $discount = 10;
     use GeneralDiscount;
 }
 
 
 class KidsFoodClass extends ProductClass
 {	
-   public
-   use ExtraWeightDiscount;
+    use ExtraWeightDiscount;
 }
 
 ?>
