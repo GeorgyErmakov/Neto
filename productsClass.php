@@ -50,7 +50,7 @@ class ProductClass implements ProductInterfaces
 		return $this->discount;
 	}
 
-	public function getDelivery()
+    public function getDelivery()
 	{
 		if ($this->dicount <> 0) {
 			return $this->delivery+50;
@@ -68,7 +68,7 @@ class ProductClass implements ProductInterfaces
     	$this->name = $name;
     }
 
-	public function setPrice($price)
+    public function setPrice($price)
 	{
 		$this->price = $price;
     }
@@ -78,11 +78,11 @@ class ProductClass implements ProductInterfaces
     	return true;
     }
 
-	public function setPic($picture) {
+    public function setPic($picture) {
 		$this->picture=$picture;
 	}
 
-	public function setDisc($discount)
+    public function setDisc($discount)
 	{
 		$this->discount = $discount;
 	}
@@ -93,7 +93,7 @@ class ProductClass implements ProductInterfaces
 
 	}
 	
-	public function setWeight($weight)
+    public function setWeight($weight)
 	{
 		$this->weight = $weight;
 	}
