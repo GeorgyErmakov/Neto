@@ -48,17 +48,24 @@ function runTest() {
             }
         }
     }
+  
     $arrayobj = new ArrayObject($_POST);
-    foreach ($arrayobj as $key => $value) {
-        foreach($var as $item) {
-        if ($key==$item['id']) { 
-            if ($item['correct']<>$value) { 
-               
-                unset($_SESSION['test']['name']);
-                unset($_SESSION['test']['id']);
-                return false;
-            }
+    $mark = 1;
+    foreach ($var as $item) {
+       
+        $mark = 0;
+        foreach ($arrayobj as $key => $value) {
+            if ($key==$item['id']) { 
+                if ($item['correct']<>$value) { 
+                    unset($_SESSION['test']['name']);
+                    unset($_SESSION['test']['id']);
+                    return false;
+                }
+                $mark = 1;
+            }       
         }
+        if ($mark==0) {
+            return false;
         }
     }
     return true;
