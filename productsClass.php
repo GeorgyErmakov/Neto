@@ -36,41 +36,41 @@ class ProductClass implements ProductInterfaces
     public function getName() 
     {
          return $this->name;
-	}
+    }
     
     public function getPrice()
-	{
+    {
         return $this->price*(1-$this->getDisc()/100);
-	}
+    }
 
     public function getDesc() 
     {
         return $this->description;
-	}
+    }
 
     public function getPic()
-	{
+    {
         return $this->picture;
-	}
+    }
 
     public function getDisc()
-	{
+    {
         return $this->discount;
-	}
+    }
 
     public function getDelivery()
-	{
+    {
         if ($this->getDisc() <> 0) {
             return $this->delivery+50;
         } else {
             return $this->delivery;
         }
-	}
+    }
     
     public function getWeight()
     {
         return $this->weight;
-	}
+    }
     
     public function setName($name) 
     {
@@ -90,33 +90,34 @@ class ProductClass implements ProductInterfaces
     public function setPic($picture) 
     {
         $this->picture = $picture;
-	}
+    }
     
     public function setDisc($discount)
-	{
+    {
         $this->discount = $discount;
-	}
+    }
+    
     public function setDelivery($del)
-	{
+    {
         $this->delivery = $del;
-	}
+    }
 	
     public function setWeight($weight)
-	{
+    {
         $this->weight = $weight;
-	}
+    }
 }
 
 trait ExtraWeightDiscount 
 {
     public function getDisc()
-	{
+    {
         if ($this->weight > 10) {
             return $this->discount;
         } else {
             return $this->discount = 0;
         }
-	}
+    }
 } 
 
 trait GeneralDiscount 
@@ -129,7 +130,7 @@ trait GeneralDiscount
     public function getPrice()
     {
         return $this->price*0.9;
-	}
+    }
 }
 
 class ToyClass extends ProductClass
@@ -149,6 +150,7 @@ class ArtClass extends ProductClass
 class KidsFoodClass extends ProductClass
 {	
     public $dateGood;
+    
     use ExtraWeightDiscount;
 }
 
