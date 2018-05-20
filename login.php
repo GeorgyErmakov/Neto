@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     if (login($login,$pw)) {
       $_SESSION['login']=$login;
+      echo 'ok';
       header("Location: index.php");
       
     }
@@ -20,6 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             echo '<p>Логин или пароль неверны!</p>';
         }
 	  }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["logout"])) {
+      logout();
 }
 ?>
 
@@ -34,13 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
   </style>
 </head>
-
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-
 <body>
-
-
-
 <p>Введите данные для регистрации или войдите, если уже регистрировались:</p>
 
 <form method="POST">
@@ -49,6 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <input type="submit" name="sign_in" value="Вход" />
     <input type="submit" name="register" value="Регистрация" />
 </form>
+
+     <?php
+   echo '<form action="" method="POST">';
+    echo  '<br/> <button name="logout" type="submit" value="logout">Выйти</button>';
+    echo '</form>';
+    ?>
 
 </body>
 </html>
