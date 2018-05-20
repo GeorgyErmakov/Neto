@@ -1,7 +1,11 @@
 <?php
 
+$pdo_db = "mysql:host=localhost;dbname=germakov;charset=UTF8";
+$pdo_user = "germakov";
+$pdo_pw = "neto1723";
+
 function login($login, $password) {
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $log = 'SELECT password from user WHERE login="'.$login.'"';
     //echo $log;
     foreach ($pdo->query($log) as $row)
@@ -28,15 +32,18 @@ function clean($value) {
 
 function addUser($login, $password)
 {
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $log = 'SELECT password from user WHERE login="'.$login.'"';
-    if (count($pdo->query($log))) {
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723"); 
+    $stmt = $pdo->prepare($log);
+    $stmt->execute();
+    $res = $stmt->fetchAll();
+    if (!count($res)) {
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']); 
     $insert = 'INSERT INTO user (login, password)
 VALUES ("'.$login.'","'.$password.'")';
     $stmt = $pdo->prepare($insert);
     $stmt->execute();
-    $pdo = null;
+    //$pdo = null;
     echo "Вы зарегистрированы в системе, можете войти";
     } else {
         echo "Такой пользователь уже существует";
@@ -46,13 +53,14 @@ VALUES ("'.$login.'","'.$password.'")';
 
 function getTODOList($bool)
 {  
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     
     if ($bool) {
 
         $sql = 'SELECT task.description as description, task.date_added as date_added, task.is_done as is_done, task.id as id, r.login as login_ath, ru.login as login_as from task join user r on task.user_id=r.id join user ru on task.assigned_user_id=ru.id where r.login="'.$_SESSION['login'].'"';
     } else {
-      $sql = 'SELECT task.description as description, task.date_added as date_added, task.is_done as is_done, task.id as id, r.login as login_ath, ru.login as login_as from task join user r on task.user_id=r.id join user ru on task.assigned_user_id=ru.id where ru.login="'.$_SESSION['login'].'"';
+            $sql = 'SELECT task.description as description, task.date_added as date_added, task.is_done as is_done, task.id as id, r.login as login_ath, ru.login as login_as from task join user r on task.user_id=r.id join user ru on task.assigned_user_id=ru.id where ru.login="'.$_SESSION['login'].'" and r.login<>"'.$_SESSION['login'].'"';
+     // $sql = 'SELECT task.description as description, task.date_added as date_added, task.is_done as is_done, task.id as id, r.login as login_ath, ru.login as login_as from task join user r on task.user_id=r.id join user ru on task.assigned_user_id=ru.id where r.login<>"'.$_SESSION['login'].'"';
 
     }
         foreach($pdo->query($sql) as $row) 
@@ -74,7 +82,7 @@ function getTODOList($bool)
 }
 
 function getSelect() {
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $sql = "SELECT login FROM user";
     $str = '';
     //$result_select = mysql_query($sql);
@@ -93,7 +101,7 @@ function getSelect() {
 function delTask()
 {
     $doid=$_GET['id'];
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $delete = 'DELETE from task WHERE id=:id';
     $stmt = $pdo->prepare($delete);
     $stmt->execute(["id"=>$doid]);
@@ -105,7 +113,7 @@ function addTask()
     $task = $_POST["taskname"];
     //$time =NOW() 
     //date('l jS \of F Y h:i:s A');
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723"); 
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']); 
     $insert = 'INSERT INTO task (description, is_done, date_added, user_id, assigned_user_id)
 select :task, false, NOW(), user.id as id, user.id as id2 from user where user.login=:login';
 echo $insert;
@@ -117,7 +125,7 @@ echo $insert;
 function doneTask()
 {
     $doid=$_GET['id'];
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $delete = 'UPDATE task set is_done = true WHERE id=:id';
     $stmt = $pdo->prepare($delete);
     $stmt->execute(["id"=>$doid]);
@@ -127,7 +135,7 @@ function doneTask()
 function editTask()
 {
     $doid=$_GET['id'];
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $delete = 'UPDATE task set is_done = true WHERE id=:id';
     $stmt = $pdo->prepare($delete);
     $stmt->execute(["id"=>$doid]);
@@ -138,7 +146,7 @@ function editTask()
 function assignTask($assigned)
 {
     $doid=$_POST['task_id'];
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $delete = 'UPDATE task set assigned_user_id = (select id from user where login = :assigned) WHERE id=:id';
     $stmt = $pdo->prepare($delete);
     $stmt->execute(["id"=>$doid, "assigned"=>$assigned]);
@@ -150,11 +158,16 @@ function updateTask()
     $task = $_POST["taskname"];
     $doid=$_GET['id'];
     echo $task.$doid;
-    $pdo = new PDO("mysql:host=localhost;dbname=germakov;charset=UTF8", "germakov", "neto1723");
+    $pdo = new PDO($GLOBALS['pdo_db'], $GLOBALS['pdo_user'], $GLOBALS['pdo_pw']);
     $update = 'UPDATE tasks set description =:descr WHERE id=:id';
     echo $update;
     $stmt = $pdo->prepare($update);
     $stmt->execute(["id"=>$doid, "descr"=>$task]);
     $pdo = null;
+}
+
+function logout(){
+session_destroy();
+header("Location: login.php");
 }
 ?>
