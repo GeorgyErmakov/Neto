@@ -9,6 +9,7 @@ $submitValue = 'Добавить задание';
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST["taskname"])) {
+
     if ($_GET['action'] == 'edit'){
         updateTask();
         header("Location: ./index.php");
@@ -17,6 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST["taskname"])) {
       header("Location: ./index.php");
     }
 
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["logout"])) {
+      logout();
 }
 
 if(isset($_GET['id']) && $_GET['action'] == 'delete') {
@@ -105,5 +111,10 @@ if(isset($_GET['id']) && $_GET['action'] == 'edit') {
           getTODOList(false);
       ?>
     </table>
+   <?php
+   echo '<form action="" method="POST">';
+    echo  '<br/> <button name="logout" type="submit" value="logout">Выйти</button>';
+    echo '</form>';
+    ?>
   </body>
 </html>
