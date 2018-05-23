@@ -1,0 +1,76 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      table { 
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+      table td, table th {
+        border: 1px solid #ccc;
+        padding: 5px;
+      }
+      table th {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form method="POST">
+      <input type="text" name="taskname" placeholder="{{fieldPlaceholder}}" value="{{fieldValue}}"/>
+      <input type="submit" value="{{submitValue}}" />
+    </form>
+{% set foo %}
+
+    <select name="assigned_user">
+    {% for sel in users %}
+          <option value={{sel.login}}>{{sel.login}}</option>
+           {% endfor %}
+          </select>
+          {% endset %}
+
+
+    <h2>Эти дела создал ты</h2>
+<ul>
+  </ul>
+    <table>
+      <tr>
+        <th>Задача</th>
+        <th>Статус</th>
+        <th>Дата создания</th>
+        <th>Автор</th>
+        <th>Ответственный</th>
+        <th>Действия</th>
+        <th>Назначить ответств.</th>
+      </tr>
+      {% for line in lines %}
+         <tr><form method="POST"><td><input type="hidden" name="task_id" value={{line.id}}>{{line.description}}</td><td>{{line.is_done}}</td><td>{{line.date_added}}</td><td>{{line.login_ath}}</td><td>{{line.login_as}}</td><td><a href="?id={{line.id}}&action=delete">Удалить</a> / <a href="?id={{line.id}}&action=done">Выполнить</a> / <a href="?id={{line.id}}&action=edit">Изменить</a></td><td>
+          {{ foo }}      
+           <input type="submit" name="change_issigne" value="Изменить" /></td></form></tr>
+      {% endfor %}
+    </table>
+
+        <h2>Эти дела создал ты</h2>
+<ul>
+  </ul>
+    <table>
+      <tr>
+        <th>Задача</th>
+        <th>Статус</th>
+        <th>Дата создания</th>
+        <th>Автор</th>
+        <th>Ответственный</th>
+        <th>Действия</th>
+      </tr>
+      {% for line in linesassigned %}
+         <tr><form method="POST"><td><input type="hidden" name="task_id" value={{line.id}}>{{line.description}}</td><td>{{line.is_done}}</td><td>{{line.date_added}}</td><td>{{line.login_ath}}</td><td>{{line.login_as}}</td><td><a href="?id={{line.id}}&action=delete">Удалить</a> / <a href="?id={{line.id}}&action=done">Выполнить</a> / <a href="?id={{line.id}}&action=edit">Изменить</a></td><td>
+      {% endfor %}
+    </table>
+
+    <form action="" method="POST">
+    <br/> <button name="logout" type="submit" value="logout">Выйти</button>
+    </form>
+  </body>
+</html>
