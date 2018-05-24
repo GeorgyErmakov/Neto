@@ -19,11 +19,7 @@
   <body>
 <h2>Создайте базу данных</h2>
   	<form method="POST">
-    <input type="text" name="DB" placeholder="Название базы данных" />
-    <input type="text" name="admin" placeholder="Администратор" />
-    <input type="password" name="passadmin" placeholder="пароль администратора" />
-    <input type="text" name="dbuser" placeholder="пользователь" />
-    <input type="password" name="passuser" placeholder="пароль" />
+    <input type="text" name="TB" placeholder="Название базы данных" />
     <input type="submit" name="sign_in" value="Создать" />
     </form>
 
@@ -35,8 +31,8 @@ require 'functions.php';
 
 showDB();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    createDB($_POST['DB'], $_POST['admin'], $_POST['passadmin'], $_POST['dbuser'], $_POST['passuser']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["TB"])) {
+    createTB($_POST['TB']);
 }
 
 if (isset($_GET['db'])) {
@@ -47,6 +43,20 @@ if (isset($_GET['table']) && isset($_GET['db'])) {
     descTables($_GET['db'], $_GET['table']);
 
 }
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["change"])) {
+    chField($_POST["tb"], $_POST["fieldold"], $_POST["field"], $_POST["type"]);
+    header("Refresh:0");
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["del"])) {
+    delField($_POST["tb"], $_POST["fieldold"]);
+    header("Refresh:0");
+}
+
+
 ?>
   </body>
 </html>
