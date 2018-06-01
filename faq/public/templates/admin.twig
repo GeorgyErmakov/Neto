@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<title>FAQ</title>
+</head>
+<body>
+<header>
+	<h1>FAQ</h1>
+</header>
+		
+    
+    {% set foo %}
+    <label for="subj">Тема</label>
+    <select id="subj" name="subjects_assign">
+    {% for line in subjects %}
+    <option value={{line.name}}>{{line.name}}</option>
+    {% endfor %}
+    </select>
+    {% endset %}
+
+    {% set authors %}
+    <label for="authors">Автор</label>
+    <select id="authors" name="ath_assign">
+    {% for line in authors %}
+    <option value={{line.name}}>{{line.name}}</option>
+    {% endfor %}
+    </select>
+    {% endset %}
+
+<section class="cd-faq">
+
+
+	{% block main %}
+	<ul class="cd-faq-categories">
+		    {% for line in subjects %}
+		<li><a href="#{{line.name}}">{{line.name}}</a></li>
+		      {% endfor %}
+	</ul> <!-- cd-faq-categories -->
+	{% endblock main %}
+
+	<div class="cd-faq-items">
+
+    {% block test_widget %}
+            {% for key, q in quanda %}
+            <ul id="{{key}}" class="cd-faq-group">
+            	<li class="cd-faq-title"><h2>{{key}}</h2></li>
+            {% for qu in q %}
+			<form action="" method="POST">
+			<li>
+				<a class="cd-faq-trigger" href="#{{q.subject}}">{{qu.question}}</a>
+				<div class="cd-faq-content">
+					<p><textarea rows="10" cols="45" name="text" >{{qu.answer}}</textarea></p>
+					<p><input type="checkbox" id="pub" name="pub" value="Published">
+					<label for="pub">Опубликовать на сайте</label></p>
+					{{foo}}
+					{{authors}}
+					<p><input type="submit" value="Изменить"></p>
+					<p><input type="submit" value="Удалить"></p>
+				</div> <!-- cd-faq-content -->
+			</li>
+		</form>
+			 {% endfor %}
+					</ul> <!-- cd-faq-group -->
+      {% endfor %}
+
+{% endblock test_widget %}
+
+
+
+	</div> <!-- cd-faq-items -->
+	<a href="#0" class="cd-close-panel">Close</a>
+</section> <!-- cd-faq -->
+<section class="cd-faq">
+<div class="cd-faq-items">
+<h2 class="cd-faq-group">Редактирование тем</h2>
+<table>
+      <tr>
+        <th>Тема</th>
+        <th>Действие</th>
+      </tr>
+      {% for line in subjects %}
+         <tr><form method="POST"><td><input type="hidden" name="desc_id" value={{line.id}}>{{line.name}}</td>
+
+         <td><input type="submit" name="delete" value="Удалить" /></td></form></tr>
+      {% endfor %}
+      <tr><form method="POST"><td><input type="text" name="desc_id" value=""></td>
+         <td><input type="submit" name="add" value="Добавить" /></td></form></tr>
+    </table>
+
+
+</div>
+</section>
+
+<section class="cd-faq">
+<div class="cd-faq-items">
+<h2 class="cd-faq-group">Редактирование администраторов</h2>
+<table>
+      <tr>
+        <th>Логин</th>
+        <th>Пароль</th>
+        <th>Действие</th>
+      </tr>
+      {% for line in subjects %}
+         <tr><form method="POST"><td><input type="hidden" name="desc_id" value={{line.id}}>{{line.name}}</td>
+         	<td><input type="password" name="pw" placeholder="password" value=""/></td>
+         	  <td><input type="submit" name="change" value="Изменить" /></td>
+         <td><input type="submit" name="delete" value="Удалить" /></td></form></tr>
+      {% endfor %}
+      <tr><form method="POST"><td><input type="text" placeholder="login" name="desc_id" value=""></td>
+         <td><input type="password" name="pw" placeholder="password" value=""/></td><td><input type="submit" name="add" value="Добавить" /></td></form></tr>
+    </table>
+</div>
+</section>
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/jquery.mobile.custom.min.js"></script>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
+</body>
+</html>

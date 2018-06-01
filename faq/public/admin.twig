@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<title>FAQ</title>
+</head>
+<body>
+<header>
+	<h1>FAQ</h1>
+</header>
+    {% set foo %}
+    <label for="subj">Тема</label>
+    <select id="subj" name="subjects_assign">
+    {% for line in subjects %}
+    <option name='idSubject' value={{line.id}}>{{line.name}}</option>
+    {% endfor %}
+    </select>
+    {% endset %}
+
+    {% set authors %}
+    <label for="authors">Автор</label>
+    <select id="authors" name="ath_assign">
+    {% for line in authors %}
+    <option name='idAuth' value={{line.id}}>{{line.name}}</option>
+    {% endfor %}
+    </select>
+    {% endset %}
+
+<section class="cd-faq">
+
+
+	{% block main %}
+	<ul class="cd-faq-categories">
+		    {% for line in subjects %}
+		<li><a href="#{{line.name}}">{{line.name}}</a></li>
+		      {% endfor %}
+    <li><a href="#Безтемы">Без темы*</a></li>
+    <li><a href="#Неопубликованы">Неопубликованы*</a></li>
+    <li><a href="#Безответа">Без ответа*</a></li>
+	</ul> <!-- cd-faq-categories -->
+	{% endblock main %}
+
+	<div class="cd-faq-items">
+
+    {% block one %}
+            {% for key, q in quanda %}
+            <ul id="{{key}}" class="cd-faq-group">
+            	<li class="cd-faq-title"><h2>{{key}}</h2></li>
+            {% for qu in q %}
+			<form action="{{ route('changequestion') }}" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="qID" value="{{qu.quid}}">
+        <input type="hidden" name="aID" value="{{qu.aid}}">
+			<li>
+				<a class="cd-faq-trigger" href="#{{q.subject}}">{{qu.question}}</a>
+
+				<div class="cd-faq-content">
+          <p>Время изменения вопроса: {{qu.timeadd}}</p>
+          <p>Автор вопроса: {{qu.author}}</p>
+          {% if qu.quvisible == 1 %}<p>Статус: опубликовано</p>{% endif %}
+          {% if qu.quvisible == 0 %}<p>Статус: вопрос не опубликован</p>{% endif %}
+					<p><textarea rows="10" cols="45" name="text" value=''>{{qu.answer}}</textarea></p>
+          <p><input type="submit" name='action' value="Ответить"></p>
+					{% if qu.quvisible == 0 %}
+          <p><input type="submit" name='action' value="Публиковать"></p>{% endif %}
+          {% if qu.quvisible == 1 %}
+          <p><input type="submit" name='action' value="Убрать из публикации"></p>{% endif %}
+					<p>{{foo}}<input type="submit" name='action' value="Изменить тему"></p>
+					<p>{{authors}}<input type="submit" name='action' value="Изменить автора"></p>	
+				</div> <!-- cd-faq-content -->
+			</li>
+		</form>
+			 {% endfor %}
+					</ul> <!-- cd-faq-group -->
+      {% endfor %}
+
+      <ul id="Безтемы" class="cd-faq-group">
+              <li class="cd-faq-title"><h2>Без темы</h2></li>
+            {% for qu in unsub %}
+      <form action="{{ route('changequestion') }}" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="qID" value="{{qu.quid}}">
+        <input type="hidden" name="aID" value="{{qu.aid}}">
+      <li>
+        <a class="cd-faq-trigger" href="#{{q.subject}}">{{qu.question}}</a>
+
+        <div class="cd-faq-content">
+          <p>Время изменения вопроса: {{qu.timeadd}}</p>
+          <p>Автор вопроса: {{qu.author}}</p>
+          {% if qu.quvisible == 1 %}<p>Статус: опубликовано</p>{% endif %}
+          {% if qu.quvisible == 0 %}<p>Статус: вопрос не опубликован</p>{% endif %}
+          <p><textarea rows="10" cols="45" name="text" value=''>{{qu.answer}}</textarea></p>
+          <p><input type="submit" name='action' value="Ответить"></p>
+          {% if qu.quvisible == 0 %}
+          <p><input type="submit" name='action' value="Публиковать"></p>{% endif %}
+          {% if qu.quvisible == 1 %}
+          <p><input type="submit" name='action' value="Убрать из публикации"></p>{% endif %}
+          <p>{{foo}}<input type="submit" name='action' value="Изменить тему"></p>
+          <p>{{authors}}<input type="submit" name='action' value="Изменить автора"></p> 
+        </div> <!-- cd-faq-content -->
+      </li>
+    </form>
+       {% endfor %}
+          </ul> <!-- cd-faq-group -->
+
+<ul id="Неопубликованы" class="cd-faq-group">
+              <li class="cd-faq-title"><h2>Неопубликованы</h2></li>
+            {% for qu in unsub %}
+      <form action="{{ route('changequestion') }}" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="qID" value="{{qu.quid}}">
+        <input type="hidden" name="aID" value="{{qu.aid}}">
+      <li>
+        <a class="cd-faq-trigger" href="#{{q.subject}}">{{qu.question}}</a>
+
+        <div class="cd-faq-content">
+          <p>Время изменения вопроса: {{qu.timeadd}}</p>
+          <p>Автор вопроса: {{qu.author}}</p>
+          {% if qu.quvisible == 1 %}<p>Статус: опубликовано</p>{% endif %}
+          {% if qu.quvisible == 0 %}<p>Статус: вопрос не опубликован</p>{% endif %}
+          <p><textarea rows="10" cols="45" name="text" value=''>{{qu.answer}}</textarea></p>
+          <p><input type="submit" name='action' value="Ответить"></p>
+          {% if qu.quvisible == 0 %}
+          <p><input type="submit" name='action' value="Публиковать"></p>{% endif %}
+          {% if qu.quvisible == 1 %}
+          <p><input type="submit" name='action' value="Убрать из публикации"></p>{% endif %}
+          <p>{{foo}}<input type="submit" name='action' value="Изменить тему"></p>
+          <p>{{authors}}<input type="submit" name='action' value="Изменить автора"></p> 
+        </div> <!-- cd-faq-content -->
+      </li>
+    </form>
+       {% endfor %}
+          </ul> <!-- cd-faq-group -->
+
+          <ul id="Безответа" class="cd-faq-group">
+              <li class="cd-faq-title"><h2>Без ответа</h2></li>
+            {% for qu in unans %}
+      <form action="{{ route('changequestion') }}" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="qID" value="{{qu.quid}}">
+        <input type="hidden" name="aID" value="{{qu.aid}}">
+      <li>
+        <a class="cd-faq-trigger" href="#{{q.subject}}">{{qu.question}}</a>
+
+        <div class="cd-faq-content">
+          <p>Время изменения вопроса: {{qu.timeadd}}</p>
+          <p>Автор вопроса: {{qu.author}}</p>
+          {% if qu.quvisible == 1 %}<p>Статус: опубликовано</p>{% endif %}
+          {% if qu.quvisible == 0 %}<p>Статус: вопрос не опубликован</p>{% endif %}
+          <p><textarea rows="10" cols="45" name="text" value=''>{{qu.answer}}</textarea></p>
+          <p><input type="submit" name='action' value="Ответить"></p>
+          {% if qu.quvisible == 0 %}
+          <p><input type="submit" name='action' value="Публиковать"></p>{% endif %}
+          {% if qu.quvisible == 1 %}
+          <p><input type="submit" name='action' value="Убрать из публикации"></p>{% endif %}
+          <p>{{foo}}<input type="submit" name='action' value="Изменить тему"></p>
+          <p>{{authors}}<input type="submit" name='action' value="Изменить автора"></p> 
+        </div> <!-- cd-faq-content -->
+      </li>
+    </form>
+       {% endfor %}
+          </ul> <!-- cd-faq-group -->
+
+{% endblock one %}
+
+
+
+	</div> <!-- cd-faq-items -->
+	<a href="#0" class="cd-close-panel">Close</a>
+</section> <!-- cd-faq -->
+<section class="cd-faq">
+<div class="cd-faq-items">
+<h2 class="cd-faq-group">Редактирование тем</h2>
+<table>
+      <tr>
+        <th>Тема</th>
+        <th>Действие</th>
+      </tr>
+      {% for line in subjects %}
+         <tr><form method="GET" action="{{ route('delsubject') }}"><input type="hidden" name="_token" value="{{ csrf_token() }}"><td><input type="hidden" name="sub_id" value={{line.id}}>{{line.name}}</td>
+         <td><input type="submit" name="delete" value="Удалить" /></td></form></tr>
+      {% endfor %}
+      <tr><form method="GET" action="{{ route('newsubject') }}"><input type="hidden" name="desc_id" value={{line.id}}><td><input type="text" name="subject" value=""></td>
+         <td><input type="submit" name="add" value="Добавить" /></td></form></tr>
+    </table>
+
+
+</div>
+</section>
+
+<section class="cd-faq">
+<div class="cd-faq-items">
+<h2 class="cd-faq-group">Редактирование администраторов</h2>
+<table>
+      <tr>
+        <th>Логин</th>
+        <th>Пароль</th>
+        <th>Действие</th>
+      </tr>
+      {% for line in users %}
+         <tr><form method="GET" action="{{ route('deladmin') }}"><input type="hidden" name="_token" value="{{ csrf_token() }}"><td><input type="hidden" name="admin_id" value={{line.id}}>{{line.name}}</td>
+         <td><input type="submit" name="delete" value="Удалить" /></td></form></tr>
+      {% endfor %}
+      <tr><form method="get" action="{{ route('newadmin') }}"><input type="hidden" name="_token" value="{{ csrf_token() }}"><td><input type="text" placeholder="name" name="name" value=""></td>
+        <td><input type="text" placeholder="email" name="email" value=""></td>
+         <td><input type="password" name="password" placeholder="password" value="password"></td><td><input type="submit" name="add" value="Добавить" /></td></form></tr>
+    </table>
+</div>
+</section>
+
+<section class="cd-faq">
+<div class="cd-faq-items">
+
+<table>
+      <tr>
+        <th>Параметр</th>
+        <th>кол-во</th>
+
+      </tr>
+<tr><td>Кол-во неопубликованных вопросов</td><td>{{unv}}</td></tr>
+<tr><td>Кол-во вопросов без темы</td><td>{{unsubjected}}</td></tr>
+<tr><td>Кол-во неотвеченных вопросов</td><td>{{unan}}</td></tr>
+    </table>
+</div>
+
+</section>
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/jquery.mobile.custom.min.js"></script>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
+</body>
+</html>
