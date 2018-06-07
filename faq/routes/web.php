@@ -22,15 +22,22 @@ Route::get('/a', function () {
    // return view('welcome');
 //});
 
-Route::get('/', 'Questions@faqList');
+Route::get('/', 'Questions@faqList')->name("user");
 Route::post('/', 'Questions@fillQuestion');
-Route::get('/admin', 'Questions@showAllAdmin');
+Route::get('/admin', 'Questions@showAllAdmin')->name("admin");
 Route::any('newadmin', 'Questions@addAdmin')->name("newadmin");
-Route::get('deladmin', 'Questions@delAdmin')->name("deladmin");
+Route::get('deladmin', 'Questions@chAdmin')->name("chadmin");
 Route::any('newsubject', 'Questions@newSubject')->name("newsubject");
 Route::any('delsubject', 'Questions@delSubject')->name("delsubject");
 Route::any('changequestion', 'Questions@chQ')->name("changequestion");
+Route::any('/test', 'TestController@runTest')->name("test");
+Route::any('/filternonaswered', 'Questions@shownonaAdmin')->name("nonanswered");
+Route::any('/filterednonpublished', 'Questions@shownonpAdmin')->name("nonpublished");
+Route::any('/auth/login', 'FAQAuthController@authenticate')->name("auth");
+Route::any('/logout', 'FAQAuthController@logout')->name("logout");
 
-//Route::get('user/{id}', function ($id) {  // })->where('id', '[0-9]+'); 
-Auth::routes();
+
+
+
+//Auth::routes();
 
