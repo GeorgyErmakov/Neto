@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      table { 
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+      table td, table th {
+        border: 1px solid #ccc;
+        padding: 5px;
+      }
+      table th {
+        background: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form method="POST">
+      <input type="text" name="question" placeholder="Вопрос" value=""/>
+      <input type="text" name="authname" placeholder="Автор" value=""/>
+      <input type="text" name="email" placeholder="email" value=""/>
+      <input type="submit" value="Задать вопрос" />
+    </form>
+
+    <h2>Все темы</h2>
+<ul>
+  </ul>
+  <div>
+  {% block main %}
+    <table>
+      <tr>
+        <th>Rкатегории</th>
+      </tr>
+      {% for line in subjects %}
+         <tr><td><a href="?id={{line.id}}">{{line.name}}</a></td></tr>
+      {% endfor %}
+    </table></div>
+    {% endblock main %}
+    
+<div>
+    {% block test_widget %}
+
+     <table>
+      <tr>
+        <th>Вопросы</th>
+            {% for q in quanda %}
+         <tr><td>{{q.question}}</a></td></tr>
+      {% endfor %}
+       </table>
+{% endblock test_widget %}
+</div>
+  </body>
+</html>
