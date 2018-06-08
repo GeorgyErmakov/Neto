@@ -1,4 +1,6 @@
 <h1>Инструкция по развертыванию FAQ</h1>
+
+Требования: MySQL: 5.0.67 и выше,  PHP 7.1.16 и выше, Composer 
 <ul>
 <li>git clone https://github.com/GeorgyErmakov/Neto faq</li>
 <li>cd faq</li>
